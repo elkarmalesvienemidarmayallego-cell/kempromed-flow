@@ -1,0 +1,26 @@
+2026-08-02 00:00:51.711 [info] 
+
+
+
+
+2026-08-02 00:00:51.756 [info] Extension host agent started.
+2026-08-02 00:01:16.240 [info] [127.0.0.1][141fc4f6][ManagementConnection] New connection established.
+2026-08-02 00:02:16.455 [info] [127.0.0.1][e83fdb48][ExtensionHostConnection] New connection established.
+2026-08-02 00:02:17.783 [info] [127.0.0.1][e83fdb48][ExtensionHostConnection] <1515> Launched Extension Host Process.
+2026-08-02 00:02:18.574 [info] [127.0.0.1][e83fdb48][ExtensionHostConnection] <1515> [reconnection-grace-time] Extension host: read VSCODE_RECONNECTION_GRACE_TIME=10800000ms (10800s)
+
+2026-08-02 00:21:45.830 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2026-08-02 00:26:20.754 [info] [127.0.0.1][141fc4f6][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2026-08-02 00:26:20.755 [info] [127.0.0.1][e83fdb48][ExtensionHostConnection] The client has reconnected.
+2026-08-02 00:26:20.987 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has reconnected.
+2026-08-02 00:48:09.652 [info] [127.0.0.1][e83fdb48][ExtensionHostConnection] The client has reconnected.
+2026-08-02 00:48:09.654 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has reconnected.
+2026-08-02 00:55:07.588 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2026-08-02 00:59:31.589 [info] [127.0.0.1][141fc4f6][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2026-08-02 00:59:31.590 [info] [127.0.0.1][e83fdb48][ExtensionHostConnection] The client has reconnected.
+2026-08-02 00:59:31.947 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has reconnected.
+2026-08-02 01:18:57.645 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2026-08-02 01:23:54.930 [info] [127.0.0.1][141fc4f6][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2026-08-02 01:23:54.931 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has reconnected.
+2026-08-02 01:23:55.189 [info] [127.0.0.1][e83fdb48][ExtensionHostConnection] The client has reconnected.
+2026-08-02 01:38:52.760 [info] [127.0.0.1][141fc4f6][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.

@@ -1,0 +1,57 @@
+2026-08-02 12:59:57.873 [info] Extension host with pid 1475 started
+2026-08-02 12:59:57.885 [info] Lock '/home/kemprodevelopment/.codeoss/data/User/workspaceStorage/39bd5415/vscode.lock': Lock acquired.
+2026-08-02 12:59:58.640 [info] ExtensionService#_doActivateExtension vscode.github-authentication, startup: false, activationEvent: 'onAuthenticationRequest:github'
+2026-08-02 12:59:58.642 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2026-08-02 12:59:59.643 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+2026-08-02 12:59:59.655 [info] ExtensionService#_doActivateExtension ms-python.python, startup: true, activationEvent: 'workspaceContains:requirements.txt'
+2026-08-02 13:00:04.188 [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+2026-08-02 13:00:04.191 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2026-08-02 13:00:06.647 [info] Not activating extension 'ms-python.python': Timed out while searching for 'workspaceContains' pattern **/pylock.*.toml
+2026-08-02 13:00:06.647 [info] Not activating extension 'redhat.java': Timed out while searching for 'workspaceContains' pattern */pom.xml,*/build.gradle,*/settings.gradle,*/build.gradle.kts,*/settings.gradle.kts,*/.classpath
+2026-08-02 13:00:06.649 [info] Not activating extension 'vscjava.vscode-java-dependency': Timed out while searching for 'workspaceContains' pattern */pom.xml,*/build.gradle,*/settings.gradle,*/build.gradle.kts,*/settings.gradle.kts,*/.classpath
+2026-08-02 13:00:06.649 [info] Not activating extension 'vscjava.vscode-java-test': Timed out while searching for 'workspaceContains' pattern */pom.xml,*/build.gradle,*/settings.gradle,*/build.gradle.kts,*/settings.gradle.kts,*/.classpath
+2026-08-02 13:00:06.649 [info] Not activating extension 'vscjava.vscode-maven': Timed out while searching for 'workspaceContains' pattern **/pom.xml
+2026-08-02 13:00:07.650 [info] Eager extensions activated
+2026-08-02 13:00:07.651 [info] ExtensionService#_doActivateExtension EditorConfig.EditorConfig, startup: false, activationEvent: 'onStartupFinished'
+2026-08-02 13:00:07.651 [info] ExtensionService#_doActivateExtension google.cloud-shell, startup: false, activationEvent: 'onStartupFinished'
+2026-08-02 13:00:07.652 [info] ExtensionService#_doActivateExtension google.geminicodeassist, startup: false, activationEvent: 'onStartupFinished', root cause: googlecloudtools.cloudcode
+2026-08-02 13:00:07.652 [info] ExtensionService#_doActivateExtension ms-toolsai.jupyter, startup: false, activationEvent: 'onStartupFinished', root cause: googlecloudtools.cloudcode
+2026-08-02 13:00:07.653 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2026-08-02 13:00:07.653 [info] ExtensionService#_doActivateExtension google.gemini-cli-vscode-ide-companion, startup: false, activationEvent: 'onStartupFinished'
+2026-08-02 13:00:07.653 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2026-08-02 13:00:10.741 [info] ExtensionService#_doActivateExtension googlecloudtools.datacloud, startup: false, activationEvent: 'onStartupFinished', root cause: googlecloudtools.cloudcode
+2026-08-02 13:00:12.570 [info] ExtensionService#_doActivateExtension vscode.configuration-editing, startup: false, activationEvent: 'onLanguage:jsonc'
+2026-08-02 13:00:12.571 [info] ExtensionService#_doActivateExtension vscode.json-language-features, startup: false, activationEvent: 'onLanguage:jsonc'
+2026-08-02 13:00:12.571 [info] ExtensionService#_doActivateExtension vscode.typescript-language-features, startup: false, activationEvent: 'onLanguage:jsonc'
+2026-08-02 13:00:18.465 [info] ExtensionService#_doActivateExtension googlecloudtools.cloudcode, startup: false, activationEvent: 'onStartupFinished'
+2026-08-02 13:00:29.271 [info] ExtensionService#_doActivateExtension vscode.terminal-suggest, startup: false, activationEvent: 'onTerminalShellIntegration:*'
+2026-08-02 14:00:46.687 [error] Error: unauthorized.
+    at e.Authorization.authorize (/google/devshell/editor/code-oss-for-cloud-shell/extensions/cloud-shell/dist/extension.js:1:6008)
+    at CA.h (file:///google/devshell/editor/code-oss-for-cloud-shell/out/vs/workbench/api/node/extensionHostProcess.js:116:41743)
+    at module$exports$google3$third_party$cloudcode$vscode$common$packages$cloudshell$authorization.CloudShellTheiaAuth.promptForOrGetAuth (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866350:3)
+    at module$exports$google3$third_party$cloudcode$vscode$common$packages$cloudshell$authorization.CloudShellTheiaAuth.runAuthorization (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866349:13)
+    at CloudShellAuthProvider.getAccessToken (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866229:3)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationDataCache (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866171:63)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationDataCache (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866184:57)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationData (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866170:376) cloudshell.authorize {"value":"google.cloud-shell","_lower":"google.cloud-shell"}
+2026-08-02 14:00:46.688 [error] Error: unauthorized.
+    at e.Authorization.authorize (/google/devshell/editor/code-oss-for-cloud-shell/extensions/cloud-shell/dist/extension.js:1:6008)
+    at CA.h (file:///google/devshell/editor/code-oss-for-cloud-shell/out/vs/workbench/api/node/extensionHostProcess.js:116:41743)
+    at module$exports$google3$third_party$cloudcode$vscode$common$packages$cloudshell$authorization.CloudShellTheiaAuth.promptForOrGetAuth (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866350:3)
+    at module$exports$google3$third_party$cloudcode$vscode$common$packages$cloudshell$authorization.CloudShellTheiaAuth.runAuthorization (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866349:13)
+    at CloudShellAuthProvider.getAccessToken (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866229:3)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationDataCache (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866171:63)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationDataCache (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866184:57)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationData (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866170:376) cloudshell.authorize {"value":"google.cloud-shell","_lower":"google.cloud-shell"}
+2026-08-02 14:00:47.701 [error] Error: Error calling Cloud Shell Theia Authorization. unauthorized.
+    at t.CloudShellTheiaAuth.validCache [as runAuthorization] (/google/devshell/editor/code-oss-for-cloud-shell/extensions/geminicodeassist/dist/webpack:/common/packages/cloudshell/authorization.ts:86:13)
+    at t.CloudShellAuthProvider.accessToken [as getAccessToken] (/google/devshell/editor/code-oss-for-cloud-shell/extensions/geminicodeassist/dist/webpack:/common/packages/auth/cloudshell_auth_provider.ts:51:35)
+    at c.updateExperimentationDataCache (/google/devshell/editor/code-oss-for-cloud-shell/extensions/geminicodeassist/dist/webpack:/common/packages/experimentation/experiment_service.ts:320:11)
+    at c.updateExperimentationData (/google/devshell/editor/code-oss-for-cloud-shell/extensions/geminicodeassist/dist/webpack:/common/packages/experimentation/experiment_service.ts:311:117)
+    at c.updateExperimentationData (/google/devshell/editor/code-oss-for-cloud-shell/extensions/geminicodeassist/dist/extension.js:14:12509954)
+2026-08-02 14:00:47.712 [error] Error: Error calling Cloud Shell Theia Authorization. unauthorized.
+    at module$exports$google3$third_party$cloudcode$vscode$common$packages$cloudshell$authorization.CloudShellTheiaAuth.runAuthorization (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866349:210)
+    at CloudShellAuthProvider.getAccessToken (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866229:3)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationDataCache (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866171:63)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationDataCache (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866184:57)
+    at module$exports$google3$cloud$developer_experience$datacloud_vscode$common$exthost$services$datacloud_experimentation_service.DatacloudExperimentationService.updateExperimentationData (/google/devshell/editor/code-oss-for-cloud-shell/extensions/googlecloudtools.datacloud/datacloud_vscode.js:866170:376)

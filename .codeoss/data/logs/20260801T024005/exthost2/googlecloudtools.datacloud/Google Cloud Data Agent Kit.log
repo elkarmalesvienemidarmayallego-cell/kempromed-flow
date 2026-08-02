@@ -1,0 +1,78 @@
+2026-08-01 03:23:25.264 [info] [OnboardingStatus] Updating context key 'gDataCloud.alreadyOnboarded' to true
+2026-08-01 03:23:25.264 [info] Getting gcloud config internal...
+2026-08-01 03:23:25.264 [info] Checking for gcloud binary path...
+2026-08-01 03:23:25.264 [info] Executing: which gcloud
+2026-08-01 03:23:25.264 [info] Getting gcloud config internal...
+2026-08-01 03:23:25.264 [info] Checking for gcloud binary path...
+2026-08-01 03:23:25.264 [info] Executing: which gcloud
+2026-08-01 03:23:25.264 [info] Checking for gcloud binary path...
+2026-08-01 03:23:25.264 [info] Executing: which gcloud
+2026-08-01 03:23:25.264 [info] Checking for gcloud binary path...
+2026-08-01 03:23:25.264 [info] Executing: which gcloud
+2026-08-01 03:23:25.264 [info] hasGcloud: true
+2026-08-01 03:23:25.264 [info] Syncing gcloud settings to extension
+2026-08-01 03:23:25.264 [info] hasGcloud: true
+2026-08-01 03:23:25.264 [info] Getting gcloud config internal...
+2026-08-01 03:23:25.264 [info] Executing: gcloud config config-helper --format json
+2026-08-01 03:23:25.264 [info] hasGcloud: true
+2026-08-01 03:23:25.264 [info] Executing: gcloud config config-helper --format json
+2026-08-01 03:23:25.264 [info] Executing: gcloud config config-helper --format json
+2026-08-01 03:23:25.264 [info] Activating bigquery
+2026-08-01 03:23:25.264 [info] ConversationalAnalyticsPlugin activated
+2026-08-01 03:23:25.264 [info] ConversationalAnalyticsPlugin: activate finished
+2026-08-01 03:23:25.264 [info] Activating Databases
+2026-08-01 03:23:25.265 [info] Activating Catalog Feature
+2026-08-01 03:23:25.265 [info] Activating dataplex universal catalog
+2026-08-01 03:23:25.265 [info] Activating dataproc
+2026-08-01 03:23:25.265 [info] Activating spark resource tree
+2026-08-01 03:23:25.265 [info] SparkMonitorPlugin: Activating...
+2026-08-01 03:23:25.265 [info] SparkMonitorPlugin: State change - experiment: true, setting: true, overall: true
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:23.979Z] Activating Agent Skill Installer
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:24.054Z] appName: Code OSS for Cloud Shell, ideType: 6
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:24.054Z] Profile antigravity-ide is NOT active
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:24.054Z] Profile antigravity is NOT active
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:24.054Z] Profile jetski is NOT active
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:24.054Z] Profile cursor is NOT active
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:24.054Z] Profile copilot is NOT active
+2026-08-01 03:23:25.265 [info] [2026-08-01T03:23:24.054Z] Profile gemini-code-assist is active
+2026-08-01 03:23:25.280 [info] [MCP Registry] Server 'notebooks' listening on IPC socket: /tmp/datacloud-mcp-notebooks-codeossforcloudshell.sock
+2026-08-01 03:23:25.284 [info] [MCP Registry] Server 'visualization' listening on IPC socket: /tmp/datacloud-mcp-visualization-codeossforcloudshell.sock
+2026-08-01 03:23:25.398 [info] MCP config plugin: MCP config key: mcpServers
+2026-08-01 03:23:25.408 [info] MCP config plugin: ideType: 6
+2026-08-01 03:23:30.453 [info] gcloud version: 577.0.0, isCompatible: true
+2026-08-01 03:23:30.453 [info] Checking if logged in to gcloud...
+2026-08-01 03:23:30.453 [info] Getting gcloud config internal...
+2026-08-01 03:23:30.462 [info] Executing: gcloud config config-helper --format json
+2026-08-01 03:23:30.464 [info] Checking if identities match...Fetching ADC account name...
+2026-08-01 03:23:30.555 [info] MCP config plugin: MCP config key: mcpServers
+2026-08-01 03:23:30.590 [info] SparkMonitorPlugin: Wrote filter config file with value: true
+2026-08-01 03:23:30.960 [info] hasGcloud: true
+2026-08-01 03:23:32.814 [info] [2026-08-01T03:23:32.814Z] Checking skills for Gemini Code Assist in /home/kemprodevelopment/.gemini/skills. Force=false
+2026-08-01 03:23:32.831 [info] [2026-08-01T03:23:32.831Z] Bundle checksum match. Skipping installation.
+2026-08-01 03:23:34.661 [info] Identity match check: {"gcloudAccountEmpty":false,"vscodeAccountEmpty":false,"gcloudAdcAccountEmpty":false,"gcloudAccountMatchesVscode":true,"gcloudAdcAccountMatchesVscode":true}
+2026-08-01 03:23:34.994 [info] gcloud version: 577.0.0, isCompatible: true
+2026-08-01 03:23:34.995 [info] Checking if logged in to gcloud...
+2026-08-01 03:23:34.995 [info] Getting gcloud config internal...
+2026-08-01 03:23:35.021 [info] Executing: gcloud config config-helper --format json
+2026-08-01 03:23:35.893 [info] Executing: gcloud auth application-default print-access-token
+2026-08-01 03:23:38.870 [info] MCP config plugin: ideType: 6
+2026-08-01 03:23:38.870 [info] SparkMonitorPlugin: State change - experiment: true, setting: true, overall: true
+2026-08-01 03:23:39.051 [info] MCP config plugin: MCP config key: mcpServers
+2026-08-01 03:23:39.657 [info] SparkMonitorPlugin: Wrote filter config file with value: true
+2026-08-01 03:23:40.666 [info] Executing: gcloud auth application-default print-access-token
+2026-08-01 03:23:40.681 [info] Verified that user is logged in to gcloud CLI and ADC.
+2026-08-01 03:23:47.906 [info] Verified that user is logged in to gcloud CLI and ADC.
+2026-08-01 03:23:51.832 [info] hasGcloud: true
+2026-08-01 03:23:57.548 [info] gcloud version: 577.0.0, isCompatible: true
+2026-08-01 03:23:57.548 [info] Checking if logged in to gcloud...
+2026-08-01 03:23:57.548 [info] Getting gcloud config internal...
+2026-08-01 03:23:57.620 [info] Executing: gcloud config config-helper --format json
+2026-08-01 03:24:01.109 [info] Executing: gcloud auth application-default print-access-token
+2026-08-01 03:24:03.265 [info] Verified that user is logged in to gcloud CLI and ADC.
+2026-08-01 03:27:16.626 [info] Deactivating bigquery
+2026-08-01 03:27:16.637 [info] Deactivating GCS
+2026-08-01 03:27:16.637 [info] Deactivating Databases
+2026-08-01 03:27:16.637 [info] Deactivating Catalog Feature
+2026-08-01 03:27:16.637 [info] Deactivating dataproc
+2026-08-01 03:27:16.638 [info] SparkMonitorPlugin: Deactivating...
+2026-08-01 03:27:16.638 [info] Deactivating settings

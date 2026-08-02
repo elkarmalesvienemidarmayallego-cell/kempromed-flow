@@ -1,0 +1,7 @@
+2026-08-02 05:06:06.604 [warning] Dir "/home/kemprodevelopment/.pixi/envs" is not watchable (directory does not exist)
+2026-08-02 05:06:07.992 [info] Skipping ActivatedEnv Detection:  process.env.VSCODE_CLI !== '1'
+2026-08-02 05:06:08.032 [info] > conda info --json
+2026-08-02 05:06:08.040 [info] Python interpreter path: /bin/python
+2026-08-02 05:06:08.484 [info] > pyenv which python
+2026-08-02 05:06:08.484 [info] cwd: .
+2026-08-02 05:06:10.274 [info] Starting Jedi language server for kemprodevelopment.

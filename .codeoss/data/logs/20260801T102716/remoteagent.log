@@ -1,0 +1,12 @@
+2026-08-01 10:27:17.142 [info] 
+
+
+
+
+2026-08-01 10:27:17.216 [info] Extension host agent started.
+2026-08-01 10:27:24.609 [info] [127.0.0.1][6ed2221f][ManagementConnection] New connection established.
+2026-08-01 10:27:24.612 [info] [127.0.0.1][d0a8bf55][ExtensionHostConnection] New connection established.
+2026-08-01 10:27:26.042 [info] [127.0.0.1][d0a8bf55][ExtensionHostConnection] <1471> Launched Extension Host Process.
+2026-08-01 10:27:26.890 [info] [127.0.0.1][d0a8bf55][ExtensionHostConnection] <1471> [reconnection-grace-time] Extension host: read VSCODE_RECONNECTION_GRACE_TIME=10800000ms (10800s)
+
+2026-08-01 10:43:56.573 [info] [127.0.0.1][6ed2221f][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...

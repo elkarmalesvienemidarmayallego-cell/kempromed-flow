@@ -1,0 +1,22 @@
+2026-08-02 12:59:42.891 [info] 
+
+
+
+
+2026-08-02 12:59:42.970 [info] Extension host agent started.
+2026-08-02 12:59:53.247 [info] [127.0.0.1][2705835b][ManagementConnection] New connection established.
+2026-08-02 12:59:53.271 [info] [127.0.0.1][e0a6a157][ExtensionHostConnection] New connection established.
+2026-08-02 12:59:54.711 [info] [127.0.0.1][e0a6a157][ExtensionHostConnection] <1475> Launched Extension Host Process.
+2026-08-02 12:59:55.613 [info] [127.0.0.1][e0a6a157][ExtensionHostConnection] <1475> [reconnection-grace-time] Extension host: read VSCODE_RECONNECTION_GRACE_TIME=10800000ms (10800s)
+
+2026-08-02 13:24:31.540 [info] [127.0.0.1][2705835b][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2026-08-02 13:28:21.024 [info] [127.0.0.1][2705835b][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2026-08-02 13:28:21.026 [info] [127.0.0.1][e0a6a157][ExtensionHostConnection] The client has reconnected.
+2026-08-02 13:28:21.265 [info] [127.0.0.1][2705835b][ManagementConnection] The client has reconnected.
+2026-08-02 13:34:48.709 [info] [127.0.0.1][2705835b][ManagementConnection] The client has reconnected.
+2026-08-02 13:34:49.399 [info] [127.0.0.1][e0a6a157][ExtensionHostConnection] The client has reconnected.
+2026-08-02 13:41:47.634 [info] [127.0.0.1][2705835b][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2026-08-02 13:46:51.826 [info] [127.0.0.1][2705835b][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2026-08-02 13:46:51.827 [info] [127.0.0.1][e0a6a157][ExtensionHostConnection] The client has reconnected.
+2026-08-02 13:46:52.066 [info] [127.0.0.1][2705835b][ManagementConnection] The client has reconnected.
+2026-08-02 13:55:04.539 [info] [127.0.0.1][2705835b][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
