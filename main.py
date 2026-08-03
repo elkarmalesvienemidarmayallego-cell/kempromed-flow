@@ -44,10 +44,10 @@ class HealthModuleRequest(BaseModel):
 
 @app.get("/", response_class=HTMLResponse, tags=["Landing Page"])
 async def render_dashboard(request: Request):
-    """
-    Renderiza la Landing Page / Dashboard Hub para clientes e instituciones.
-    """
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        name="index.html", 
+        context={"request": request}
+    )
 
 # --- ENDPOINTS CORE ---
 
