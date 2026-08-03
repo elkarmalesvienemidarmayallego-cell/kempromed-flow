@@ -108,3 +108,10 @@ async def register_health_service(payload: HealthModuleRequest):
         "message": f"Servicio '{payload.service_type}' registrado exitosamente para el cliente '{payload.client_id}'.",
         "integration_status": "Active"
     }
+# --- MÓDULO K-AURA LUXURY DATING ---
+@app.get("/k-aura", response_class=HTMLResponse, tags=["K-AURA"])
+async def render_kaura(request: Request):
+    return templates.TemplateResponse(
+        request=request, 
+        name="k_aura.html"
+    )
