@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kempromed Flow | Hub SaaS & B2B Infrastructure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        cardBg: '#111827',
+                        accentBlue: '#3b82f6',
+                        accentCyan: '#06b6d4',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="border-b border-gray-800 bg-gray-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-cyan-500/20">
+                    K
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">KEMPROMED <span class="text-cyan-400 font-extrabold">FLOW</span></h1>
+                    <p class="text-xs text-gray-400">Kempro Development Ecosystem</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span id="system-status-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> Verificando Estado...
+                </span>
+                <a href="/docs" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-all shadow-md shadow-blue-600/30">
+                    <i class="fa-solid fa-code border-r border-blue-400 pr-2 mr-1"></i> Swagger API
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="max-w-7xl mx-auto px-6 py-12 flex-grow">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 via-cyan-300 to-white bg-clip-text text-transparent">
+                Infraestructura SaaS y Soluciones Digitales B2B
+            </h2>
+            <p class="text-gray-400 text-lg">
+                Hub de integración tecnológica para el sector empresarial, salud digital, monetización de software y soluciones blockchain.
+            </p>
+        </div>
+
+        <!-- MÓDULOS DEL DASHBOARD -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            
+            <!-- TARJETA 1: SALUD B2B -->
+            <div class="bg-cardBg border border-gray-800 rounded-2xl p-6 hover:border-cyan-500/50 transition duration-300 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-cyan-500/10 border border-cyan-500/20 rounded-xl flex items-center justify-center text-cyan-400 mb-4 text-xl">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Módulos de Salud B2B</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Integración directa de telemedicina, expedientes y registro de servicios institucional (Canacintra / Canaco).
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-gray-800/60">
+                    <span class="text-xs text-cyan-400 font-semibold bg-cyan-950/50 px-2 py-1 rounded">API Active: /api/v1/health-services</span>
+                </div>
+            </div>
+
+            <!-- TARJETA 2: MONETIZACIÓN CRIPTO EN VIVO -->
+            <div class="bg-cardBg border border-gray-800 rounded-2xl p-6 hover:border-blue-500/50 transition duration-300 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 mb-4 text-xl">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Servicios Cripto & Liquidez</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Consultas asíncronas de mercado en tiempo real y conectividad para monetización de activos.
+                    </p>
+                    
+                    <!-- WIDGET EN VIVO -->
+                    <div class="bg-gray-900/80 rounded-xl p-3 border border-gray-800 mt-2">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs text-gray-400 font-medium">Bitcoin (BTC/USD)</span>
+                            <span class="text-xs text-green-400 font-mono" id="btc-status">Conectando...</span>
+                        </div>
+                        <div class="text-2xl font-bold font-mono text-white" id="btc-price">$0.00</div>
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-gray-800/60 mt-4">
+                    <span class="text-xs text-blue-400 font-semibold bg-blue-950/50 px-2 py-1 rounded">API Active: /api/v1/crypto/price</span>
+                </div>
+            </div>
+
+            <!-- TARJETA 3: MICROSERVICIOS Y MONITOREO -->
+            <div class="bg-cardBg border border-gray-800 rounded-2xl p-6 hover:border-indigo-500/50 transition duration-300 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 mb-4 text-xl">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Core Engine & Resiliencia</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Arquitectura FastAPI asíncrona desplegada en Render con monitoreo continuo de disponibilidad.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-gray-800/60">
+                    <button onclick="checkHealth()" class="w-full py-2 bg-gray-800 hover:bg-gray-700 text-xs font-semibold rounded-lg border border-gray-700 transition">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Probar Health Check
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 bg-gray-900/30 py-6">
+        <div class="max-w-7xl mx-auto px-6 text-center text-xs text-gray-500">
+            <p>© 2026 Kempro Development. Desarrollado por Mau. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- LOGICA JS DE CONEXION A LA API -->
+    <script>
+        async function fetchSystemHealth() {
+            try {
+                const res = await fetch('/health');
+                if (res.ok) {
+                    const badge = document.getElementById('system-status-badge');
+                    badge.className = "px-3 py-1 rounded-full text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-2";
+                    badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400"></span> Sistema 100% Operativo`;
+                }
+            } catch (err) {
+                console.error("Error al consultar health:", err);
+            }
+        }
+
+        async function fetchCryptoPrice() {
+            try {
+                const res = await fetch('/api/v1/crypto/price?symbol=bitcoin&currency=usd');
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('btc-price').innerText = `$${data.price.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                    document.getElementById('btc-status').innerText = 'En vivo';
+                }
+            } catch (err) {
+                document.getElementById('btc-price').innerText = "Error API";
+            }
+        }
+
+        function checkHealth() {
+            fetchSystemHealth();
+            fetchCryptoPrice();
+        }
+
+        // Ejecutar al cargar la página
+        window.onload = () => {
+            fetchSystemHealth();
+            fetchCryptoPrice();
+            setInterval(fetchCryptoPrice, 30000); // Actualizar precio cripto cada 30 seg
+        };
+    </script>
+</body>
+</html>

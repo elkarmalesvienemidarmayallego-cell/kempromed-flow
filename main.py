@@ -1,7 +1,9 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 import httpx
 
 # 1. Configuración principal de la API
@@ -13,7 +15,10 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# 2. Configuración de CORS
+# 2. Configuración de Plantillas
+templates = Jinja2Templates(directory="templates")
+
+# 3. Configuración de CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -33,17 +38,16 @@ class HealthModuleRequest(BaseModel):
     client_id: str = Field(..., example="CANACINTRA-001")
     service_type: str = Field(..., example="telemedicina")
 
-# --- ENDPOINTS CORE ---
+# --- ENDPOINT VISTA DASHBOARD (LANDING PAGE) ---
 
-@app.get("/", tags=["General"])
-async def root():
-    """Ruta raíz de bienvenida al Hub."""
-    return {
-        "entity": "Kempro Development",
-        "project": "Kempromed Flow",
-        "status": "Operational",
-        "docs": "/docs"
-    }
+@app.get("/", response_class=HTMLResponse, tags=["Landing Page"])
+async def render_dashboard(request: Request):
+    """
+    Renderiza la Landing Page / Dashboard Hub para clientes e instituciones.
+    """
+    return templates.TemplateResponse("index.html", {"request": request})
+
+# --- ENDPOINTS CORE ---
 
 @app.get("/health", response_model=HealthCheckResponse, tags=["Monitoreo"])
 async def health_check():
