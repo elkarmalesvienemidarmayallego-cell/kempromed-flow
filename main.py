@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException, status, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
@@ -16,7 +17,8 @@ app = FastAPI(
 )
 
 # 2. Configuración de Plantillas
-templates = Jinja2Templates(directory="templates")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 # 3. Configuración de CORS
 app.add_middleware(
