@@ -1,58 +1,104 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+from typing import Optional, Dict, Any
+import httpx
 
-app = FastAPI()
+# 1. Configuración principal de la API
+app = FastAPI(
+    title="Kempromed Flow API",
+    description="Infraestructura B2B / SaaS para Servicios de Salud, Monetización y Soluciones Cripto.",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
 
-@app.get("/", response_class=HTMLResponse)
-def root():
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>KEMPROMED FLOW</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body class="bg-black text-cyan-400 min-h-screen flex flex-col justify-center items-center p-6">
-        
-        <!-- Header Principal -->
-        <div class="p-8 border border-cyan-500/30 rounded-2xl bg-gray-950 text-center max-w-3xl w-full shadow-lg shadow-cyan-500/10 mb-8">
-            <h1 class="text-4xl font-bold mb-2 tracking-wider text-cyan-300">⚡ KEMPROMED.FLOW</h1>
-            <p class="text-gray-400 text-sm mb-4">AETHER Risk Engine & Security Systems</p>
-            <div class="inline-block px-4 py-1 bg-cyan-950 border border-cyan-500/50 text-cyan-300 rounded-full text-xs font-semibold animate-pulse">
-                • SERVIDOR OPERATIVO EN GOOGLE CLOUD
-            </div>
-        </div>
+# 2. Configuración de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-        <!-- Menú de Microservicios -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl w-full">
-            
-            <!-- Card 1 -->
-            <a href="#" class="group p-6 border border-cyan-500/20 rounded-xl bg-gray-900/60 hover:bg-cyan-950/40 hover:border-cyan-400 transition-all duration-300 text-center">
-                <div class="text-3xl mb-3">🛡️</div>
-                <h3 class="text-lg font-bold text-cyan-300 group-hover:text-cyan-200">AETHER Risk</h3>
-                <p class="text-gray-400 text-xs mt-2">Motor de evaluación y amenazas en tiempo real.</p>
-            </a>
+# --- MODELOS DE DATOS (Pydantic) ---
 
-            <!-- Card 2 -->
-            <a href="#" class="group p-6 border border-cyan-500/20 rounded-xl bg-gray-900/60 hover:bg-cyan-950/40 hover:border-cyan-400 transition-all duration-300 text-center">
-                <div class="text-3xl mb-3">📊</div>
-                <h3 class="text-lg font-bold text-cyan-300 group-hover:text-cyan-200">Analytics Hub</h3>
-                <p class="text-gray-400 text-xs mt-2">Métricas avanzadas y telemetría de red.</p>
-            </a>
+class HealthCheckResponse(BaseModel):
+    status: str = Field(..., example="ok")
+    service: str = Field(..., example="Kempromed Flow Engine")
+    environment: str = Field(..., example="production")
 
-            <!-- Card 3 -->
-            <a href="/docs" target="_blank" class="group p-6 border border-emerald-500/30 rounded-xl bg-gray-900/60 hover:bg-emerald-950/40 hover:border-emerald-400 transition-all duration-300 text-center">
-                <div class="text-3xl mb-3">⚙️</div>
-                <h3 class="text-lg font-bold text-emerald-400 group-hover:text-emerald-300">API Docs</h3>
-                <p class="text-gray-400 text-xs mt-2">Documentación interactiva de FastAPI (Swagger).</p>
-            </a>
+class HealthModuleRequest(BaseModel):
+    client_id: str = Field(..., example="CANACINTRA-001")
+    service_type: str = Field(..., example="telemedicina")
 
-        </div>
+# --- ENDPOINTS CORE ---
 
-        <footer class="mt-12 text-gray-600 text-xs">
-            KEMPROMED Systems © 2026 — Todos los derechos reservados.
-        </footer>
+@app.get("/", tags=["General"])
+async def root():
+    """Ruta raíz de bienvenida al Hub."""
+    return {
+        "entity": "Kempro Development",
+        "project": "Kempromed Flow",
+        "status": "Operational",
+        "docs": "/docs"
+    }
 
-    </body>
-    </html>
+@app.get("/health", response_model=HealthCheckResponse, tags=["Monitoreo"])
+async def health_check():
+    """Endpoint ligero para verificar disponibilidad del servidor."""
+    return {
+        "status": "ok",
+        "service": "Kempromed Flow Engine",
+        "environment": "production"
+    }
+
+# --- MÓDULO CRIPTO ---
+
+@app.get("/api/v1/crypto/price", tags=["Servicios Cripto"])
+async def get_crypto_price(symbol: str = "bitcoin", currency: str = "usd") -> Dict[str, Any]:
     """
+    Obtiene la cotización en tiempo real de criptomonedas utilizando llamadas asíncronas.
+    """
+    url = f"https://api.coingecko.com/api/v3/simple/price?ids={symbol.lower()}&vs_currencies={currency.lower()}"
+    
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(url, timeout=5.0)
+            if response.status_code != 200:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Error al conectar con la API de mercados cripto."
+                )
+            data = response.json()
+            if not data or symbol.lower() not in data:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Símbolo '{symbol}' no encontrado."
+                )
+            
+            return {
+                "success": True,
+                "asset": symbol.lower(),
+                "currency": currency.lower(),
+                "price": data[symbol.lower()][currency.lower()]
+            }
+        except httpx.RequestError:
+            raise HTTPException(
+                status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+                detail="Tiempo de espera agotado al consultar el mercado."
+            )
+
+# --- MÓDULO SALUD & B2B ---
+
+@app.post("/api/v1/health-services/register", tags=["Infraestructura Salud B2B"])
+async def register_health_service(payload: HealthModuleRequest):
+    """
+    Punto de entrada para la integración de módulos de salud empresarial.
+    """
+    return {
+        "success": True,
+        "message": f"Servicio '{payload.service_type}' registrado exitosamente para el cliente '{payload.client_id}'.",
+        "integration_status": "Active"
+    }
