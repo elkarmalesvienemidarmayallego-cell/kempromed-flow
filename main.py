@@ -45,8 +45,8 @@ class HealthModuleRequest(BaseModel):
 @app.get("/", response_class=HTMLResponse, tags=["Landing Page"])
 async def render_dashboard(request: Request):
     return templates.TemplateResponse(
-        name="index.html", 
-        context={"request": request}
+        request=request, 
+        name="index.html"
     )
 
 # --- ENDPOINTS CORE ---
