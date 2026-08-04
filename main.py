@@ -108,10 +108,48 @@ async def register_health_service(payload: HealthModuleRequest):
         "message": f"Servicio '{payload.service_type}' registrado exitosamente para el cliente '{payload.client_id}'.",
         "integration_status": "Active"
     }
-# --- MÓDULO K-AURA LUXURY DATING ---
-@app.get("/k-aura", response_class=HTMLResponse, tags=["K-AURA"])
-async def render_kaura(request: Request):
-    return templates.TemplateResponse(
-        request=request, 
-        name="k_aura.html"
-    )
+import sqlite3
+from fastapi import Form
+
+# Inicializar Base de Datos para K-AURA
+def init_db():
+    conn = sqlite3.connect("kaura.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS perfiles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            pseudonimo TEXT NOT NULL,
+            correo TEXT NOT NULL,
+            estado TEXT DEFAULT 'Pendiente',
+            fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+init_db()
+
+# API: Guardar formulario de K-AURA
+@app.post("/api/solicitar-acceso")
+async def solicitar_acceso(pseudonimo: str = Form(...), correo: str = Form(...)):
+    conn = sqlite3.connect("kaura.db")
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO perfiles (pseudonimo, correo) VALUES (?, ?)", (pseudonimo, correo))
+    conn.commit()
+    conn.close()
+    return {"status": "ok", "message": "Solicitud recibida con éxito"}
+
+# API: Panel de administración para ver postulantes
+@app.get("/admin/perfiles")
+async def ver_perfiles():
+    conn = sqlite3.connect("kaura.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, pseudonimo, correo, estado, fecha FROM perfiles ORDER BY id DESC")
+    filas = cursor.fetchall()
+    conn.close()
+    
+    perfiles = [
+        {"id": f[0], "pseudonimo": f[1], "correo": f[2], "estado": f[3], "fecha": f[4]}
+        for f in filas
+    ]
+    return {"total_postulantes": len(perfiles), "postulantes": perfiles}
