@@ -164,7 +164,7 @@ from fastapi.responses import RedirectResponse
 # Si app ya está definida arriba, solo asegúrate de incluir esta línea y el endpoint:
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
-@app.get("/cobrar-100")
+@app.get("/checkout")
 def cobrar_cien():
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
