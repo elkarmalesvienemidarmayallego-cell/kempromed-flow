@@ -156,3 +156,28 @@ async def ver_perfiles():
         for f in filas
     ]
     return {"total_postulantes": len(perfiles), "postulantes": perfiles}
+    import os
+import stripe
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+
+# Si app ya está definida arriba, solo asegúrate de incluir esta línea y el endpoint:
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+
+@app.get("/cobrar-100")
+def cobrar_cien():
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'mxn',
+                'product_data': {'name': 'Acceso Kempromed Flow'},
+                'unit_amount': 10000,  # $100.00 MXN
+            },
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url='https://kempromed-flow.onrender.com/?status=success',
+        cancel_url='https://kempromed-flow.onrender.com/?status=cancel',
+    )
+    return RedirectResponse(url=session.url)
