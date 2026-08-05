@@ -19,7 +19,10 @@ app = FastAPI(
 # 2. Configuración de Plantillas
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
-
+# --- VALIDACIÓN OFICIAL DMCA ---
+@app.get("/dmca-validation.html", response_class=HTMLResponse)
+async def dmca_validation():
+    return "eT15SEdmUjB5dVZFajhzK25mQ2JXdU9jV3BraUdUWkJMWE01bDROcKJXND01"
 # 3. Configuración de CORS
 app.add_middleware(
     CORSMiddleware,
