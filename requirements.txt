@@ -1,5 +1,6 @@
 fastapi
 uvicorn
-gunicorn
 httpx
 jinja2
+python-multipart
+stripe
