@@ -5,10 +5,13 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 
 app = FastAPI(
-    title="Kempromed Flow | Ecosistema Total",
-    description="Backend B2B de Alta Concurrencia para Salud, Cripto, Negocios, Desarrollo Social, iGaming y Redes Social/Citas.",
-    version="2.5.0"
+    title="Kempromed Flow | Ecosistema Total & Casino Engine",
+    description="Backend B2B de Alta Concurrencia para Salud, Cripto, Negocios, iGaming y Redes Social/Citas.",
+    version="2.6.0"
 )
+
+# Base de datos en memoria para el Casino
+user_wallets = {}
 
 # --- 1. DASHBOARD PRINCIPAL CON MÓDULOS DEL ECOSISTEMA ---
 @app.get("/", response_class=HTMLResponse, tags=["Dashboard"])
@@ -216,7 +219,7 @@ def checkout_page(request: Request, amount: float = None):
     </html>
     """
 
-# --- 3. ENDPOINT STRIPE (FIX: RECIBE FORM DATA SINO DABA ERROR 422) ---
+# --- 3. ENDPOINT STRIPE ---
 @app.post("/api/v1/stripe/create-checkout", tags=["Stripe Gateway"])
 def create_stripe_checkout(amount: float = Form(...)):
     stripe_key = os.getenv("STRIPE_SECRET_KEY", "mock_key")
@@ -255,7 +258,54 @@ def aura_engine(request: Request):
     </html>
     """
 
-# --- 5. ENDPOINTS DE INTEGRACIÓN ---
+# --- 5. MOTOR CASINO CRIPTO & BILLETERAS ---
+@app.post("/api/v1/casino/register", tags=["Casino Cripto"])
+def register_player(user_id: str):
+    """Crea la billetera del jugador y asigna bono inicial gratis."""
+    if user_id not in user_wallets:
+        user_wallets[user_id] = {
+            "real_balance_sats": 0,
+            "bonus_balance_sats": 1000,
+            "bets_placed": 0
+        }
+    return {
+        "status": "success",
+        "user_id": user_id,
+        "wallet": user_wallets[user_id],
+        "message": "¡Bono de bienvenida acreditado! Completa 5 apuestas para liberar ganancias."
+    }
+
+@app.post("/api/v1/casino/play-round", tags=["Casino Cripto"])
+def play_casino_round(user_id: str, bet_sats: int, use_bonus: bool = True):
+    """Procesa la apuesta con multiplicador transparente."""
+    if user_id not in user_wallets:
+        return {"error": "Usuario no registrado. Llama primero a /register"}
+    
+    player = user_wallets[user_id]
+    balance_key = "bonus_balance_sats" if use_bonus else "real_balance_sats"
+    
+    if player[balance_key] < bet_sats:
+        return {"error": f"Saldo insuficiente en la billetera {'de Bono' if use_bonus else 'Real'}"}
+    
+    player[balance_key] -= bet_sats
+    player["bets_placed"] += 1
+    
+    multipliers = [0, 0, 0, 1.2, 1.5, 2.0, 3.5, 10.0]
+    hit = random.choice(multipliers)
+    payout = int(bet_sats * hit)
+    
+    player[balance_key] += payout
+    
+    return {
+        "user_id": user_id,
+        "bet_sats": bet_sats,
+        "multiplier": f"{hit}x",
+        "payout_sats": payout,
+        "new_balance": player[balance_key],
+        "status": "WIN" if hit > 1 else "LOSS"
+    }
+
+# --- 6. ENDPOINTS CRIPTO & CASINO MULTIPLICADOR BASE ---
 @app.get("/api/v1/crypto/price", tags=["Crypto Engine"])
 def get_crypto_price():
     try:
