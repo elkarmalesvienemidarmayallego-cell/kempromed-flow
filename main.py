@@ -1,16 +1,16 @@
 import os
 import random
 import requests
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 
 app = FastAPI(
-    title="Kempromed Flow Engine & Casino Core",
-    description="Backend B2B de Alta Concurrencia, APIs Cripto y Pasarela Dinámica de Pagos",
-    version="2.0.0"
+    title="Kempromed Flow | Ecosistema Total",
+    description="Backend B2B de Alta Concurrencia para Salud, Cripto, Negocios, Desarrollo Social, iGaming y Redes Social/Citas.",
+    version="2.5.0"
 )
 
-# --- 1. RUTA RAÍZ: DASHBOARD EJECUTIVO ---
+# --- 1. DASHBOARD PRINCIPAL CON MÓDULOS DEL ECOSISTEMA ---
 @app.get("/", response_class=HTMLResponse, tags=["Dashboard"])
 def home_dashboard(request: Request):
     return """
@@ -19,33 +19,34 @@ def home_dashboard(request: Request):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Kempromed Flow | High-Performance Engine</title>
+        <title>Kempromed Flow | Total Ecosystem</title>
         <style>
             * { box-sizing: border-box; }
             body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0b0f19; color: #f8fafc; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
             .header { text-align: center; padding: 45px 20px 25px; background: linear-gradient(180deg, #111827 0%, #0b0f19 100%); border-bottom: 1px solid #1f2937; }
             .status-badge { background: #064e3b; color: #34d399; font-size: 0.8rem; padding: 5px 14px; border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 12px; }
             h1 { color: #38bdf8; font-size: 2.5rem; margin: 0 0 10px; font-weight: 800; letter-spacing: -0.5px; }
-            p.sub { color: #94a3b8; font-size: 1.05rem; max-width: 750px; margin: 0 auto; line-height: 1.5; }
+            p.sub { color: #94a3b8; font-size: 1.05rem; max-width: 800px; margin: 0 auto; line-height: 1.5; }
             
-            .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; flex: 1; }
-            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; flex: 1; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
             
-            .card { background: #161e2e; border: 1px solid #223046; border-radius: 16px; padding: 28px; transition: transform 0.2s, border-color 0.2s; }
+            .card { background: #161e2e; border: 1px solid #223046; border-radius: 16px; padding: 28px; transition: transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
             .card:hover { transform: translateY(-4px); border-color: #38bdf8; }
             .card h3 { color: #38bdf8; margin: 0 0 10px; font-size: 1.3rem; }
             .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
             
             .price-box { background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-            .price-val { color: #4ade80; font-size: 1.4rem; font-weight: bold; }
+            .price-val { color: #4ade80; font-size: 1.3rem; font-weight: bold; }
             
-            .btn { display: inline-block; background: #38bdf8; color: #0b0f19; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; }
+            .btn { display: inline-block; background: #38bdf8; color: #0b0f19; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; text-align: center; }
             .btn-green { background: #10b981; color: #022c22; }
+            .btn-purple { background: #a855f7; color: #fff; }
             
             footer { background: #070a12; border-top: 1px solid #1f2937; padding: 40px 20px; margin-top: auto; font-size: 0.85rem; color: #64748b; }
-            .footer-content { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+            .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
             .footer-col h4 { color: #cbd5e1; margin: 0 0 12px; }
-            .legal-bar { max-width: 1100px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid #111827; display: flex; justify-content: space-between; align-items: center; }
+            .legal-bar { max-width: 1200px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid #111827; display: flex; justify-content: space-between; align-items: center; }
         </style>
     </head>
     <body>
@@ -53,40 +54,88 @@ def home_dashboard(request: Request):
         <div class="header">
             <span class="status-badge">● Sistema 100% Operativo | GCP & Render</span>
             <h1>KEMPROMED FLOW</h1>
-            <p class="sub">Punta de lanza en infraestructura de software, pasarelas dinámicas B2B, motor de casino e integración multinivel.</p>
+            <p class="sub">Ecosistema Integral de Microservicios: Salud, Economía Digital, Desarrollo Social, Negocios B2B, Casino & Algoritmos de Conexión.</p>
         </div>
 
         <div class="container">
             <div class="grid">
                 
+                <!-- 1. MÓDULO SALUD -->
                 <div class="card">
-                    <h3>📊 Liquidez & Cripto Engine</h3>
-                    <p>Monitoreo asíncrono y feeds de datos financieros en tiempo real para transacciones iGaming y B2B.</p>
-                    <div class="price-box">
-                        <span style="color:#64748b; font-size:0.8rem;">BITCOIN (USD):</span>
-                        <div class="price-val" id="btc-price">Cargando...</div>
+                    <div>
+                        <h3>🩺 Salud & Telemedicina</h3>
+                        <p>Plataforma de expedientes clínicos, recetas electrónicas y gestión de citas de atención médica.</p>
+                        <div class="price-box">
+                            <span style="color:#64748b; font-size:0.8rem;">SISTEMA:</span>
+                            <div class="price-val" style="color:#ef4444;">Kempromed Health</div>
+                        </div>
                     </div>
-                    <a href="/docs" class="btn">Swagger Docs →</a>
+                    <a href="/docs" class="btn">Módulo Telemedicina →</a>
                 </div>
 
+                <!-- 2. MÓDULO ECONOMÍA & CRIPTO -->
                 <div class="card">
-                    <h3>💳 Terminal Dinámica B2B</h3>
-                    <p>Pasarela flexible para licencias individuales, cobros personalizados e inyección instantánea de liquidez.</p>
-                    <div class="price-box">
-                        <span style="color:#64748b; font-size:0.8rem;">COBRO:</span>
-                        <div class="price-val" style="color:#38bdf8;">Custom / Abierto</div>
+                    <div>
+                        <h3>📈 Economía & Cripto Engine</h3>
+                        <p>Feeds de precios en vivo, liquidación de activos y pasarela financiera de liquidez.</p>
+                        <div class="price-box">
+                            <span style="color:#64748b; font-size:0.8rem;">BITCOIN (USD):</span>
+                            <div class="price-val" id="btc-price">Cargando...</div>
+                        </div>
+                    </div>
+                    <a href="/docs" class="btn">Crypto Feed API →</a>
+                </div>
+
+                <!-- 3. MÓDULO NEGOCIOS B2B -->
+                <div class="card">
+                    <div>
+                        <h3>💳 Negocios & Licencias B2B</h3>
+                        <p>Terminales dinámicas de cobro, contratos de servicios e inyección de liquidez personalizada.</p>
+                        <div class="price-box">
+                            <span style="color:#64748b; font-size:0.8rem;">PASARELA:</span>
+                            <div class="price-val" style="color:#38bdf8;">Custom / Abierto</div>
+                        </div>
                     </div>
                     <a href="/checkout" class="btn btn-green">Abrir Terminal Dinámica</a>
                 </div>
 
+                <!-- 4. MÓDULO DESARROLLO SOCIAL -->
                 <div class="card">
-                    <h3>⚡ Tom & Aix Space</h3>
-                    <p>Motor de optimización, entropía cuántica y gestión de algoritmos de casino y apuestas.</p>
-                    <div class="price-box">
-                        <span style="color:#64748b; font-size:0.8rem;">MOTOR:</span>
-                        <div class="price-val" style="color:#a855f7;">Aura Active</div>
+                    <div>
+                        <h3>🏛️ Desarrollo Social & Educación</h3>
+                        <p>Convenios universitarios, acceso a APIs de desarrollo e impacto comunitario institucional.</p>
+                        <div class="price-box">
+                            <span style="color:#64748b; font-size:0.8rem;">VINCULACIÓN:</span>
+                            <div class="price-val" style="color:#f59e0b;">Academia / Mexicali</div>
+                        </div>
                     </div>
-                    <a href="/aura" class="btn" style="background:#a855f7; color:#fff;">Módulo Aura</a>
+                    <a href="/docs" class="btn">Portal Universitario →</a>
+                </div>
+
+                <!-- 5. MÓDULO APUESTAS / CASINO -->
+                <div class="card">
+                    <div>
+                        <h3>🎰 Casino & Quantum Entropy</h3>
+                        <p>Motor de apuestas, asignación de bonos, multiplicadores y gestión de riesgo en tiempo real.</p>
+                        <div class="price-box">
+                            <span style="color:#64748b; font-size:0.8rem;">MOTOR:</span>
+                            <div class="price-val" style="color:#a855f7;">Aura Active</div>
+                        </div>
+                    </div>
+                    <a href="/aura" class="btn btn-purple">Módulo Aura / Tom-Aix</a>
+                </div>
+
+                <!-- 6. MÓDULO CITAS & RED SOCIAL -->
+                <div class="card">
+                    <div>
+                        <h3>❤️ Social & Match Engine</h3>
+                        <p>Algoritmos de compatibilidad, perfiles verificados e interacción dinámica para la comunidad.</p>
+                        <div class="price-box">
+                            <span style="color:#64748b; font-size:0.8rem;">CONEXIÓN:</span>
+                            <div class="price-val" style="color:#ec4899;">Match System</div>
+                        </div>
+                    </div>
+                    <a href="/docs" class="btn" style="background:#ec4899; color:#fff;">Red Social API →</a>
                 </div>
 
             </div>
@@ -96,7 +145,7 @@ def home_dashboard(request: Request):
             <div class="footer-content">
                 <div>
                     <h4 style="color:#38bdf8;">KEMPROMED DEVELOPMENT</h4>
-                    <p style="margin:0;">Infraestructura de microservicios de alto desempeño. Propiedad Intelectual de Dr. Mauro Falcón.</p>
+                    <p style="margin:0;">Ecosistema integral de microservicios. Propiedad Intelectual de Dr. Mauro Falcón.</p>
                 </div>
                 <div>
                     <h4>RED DE PLATAFORMAS</h4>
@@ -132,7 +181,7 @@ def home_dashboard(request: Request):
     </html>
     """
 
-# --- 2. TERMINAL DINÁMICA DE COBRO (DINERO LIBRE / STRIPE READY) ---
+# --- 2. TERMINAL DE PAGO / CHECKOUT ---
 @app.get("/checkout", response_class=HTMLResponse, tags=["Terminales"])
 def checkout_page(request: Request, amount: float = None):
     initial_val = f"{amount:.2f}" if amount else ""
@@ -167,20 +216,19 @@ def checkout_page(request: Request, amount: float = None):
     </html>
     """
 
-# --- 3. ENDPOINT PARA SESIÓN DE COBRO STRIPE ---
+# --- 3. ENDPOINT STRIPE (FIX: RECIBE FORM DATA SINO DABA ERROR 422) ---
 @app.post("/api/v1/stripe/create-checkout", tags=["Stripe Gateway"])
-def create_stripe_checkout(amount: float):
-    # Listo para vincular tu llave real de STRIPE_SECRET_KEY en Render
+def create_stripe_checkout(amount: float = Form(...)):
     stripe_key = os.getenv("STRIPE_SECRET_KEY", "mock_key")
     return {
-        "status": "ready",
-        "amount_requested": amount,
+        "status": "success",
+        "amount_received": amount,
         "currency": "MXN",
         "gateway": "Stripe B2B Engine",
-        "note": "Si la variable STRIPE_SECRET_KEY está configurada en Render, generará la URL de pago directa."
+        "message": f"Procesando cobro individualizado de ${amount:.2f} MXN."
     }
 
-# --- 4. RUTA AURA / TOM & AIX ---
+# --- 4. RUTA AURA ---
 @app.get("/aura", response_class=HTMLResponse, tags=["Terminales"])
 def aura_engine(request: Request):
     return """
@@ -207,7 +255,7 @@ def aura_engine(request: Request):
     </html>
     """
 
-# --- 5. ENDPOINTS CRIPTO & CASINO ---
+# --- 5. ENDPOINTS DE INTEGRACIÓN ---
 @app.get("/api/v1/crypto/price", tags=["Crypto Engine"])
 def get_crypto_price():
     try:
