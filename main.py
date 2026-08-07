@@ -5,15 +5,15 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 
 app = FastAPI(
-    title="Kempromed Flow | Ecosistema Total & Casino Engine",
-    description="Backend B2B de Alta Concurrencia para Salud, Cripto, Negocios, iGaming y Redes Social/Citas.",
-    version="2.6.0"
+    title="Kempromed Flow | Total Enterprise Ecosystem",
+    description="Backend B2B de Alta Concurrencia para Salud, Cripto, Negocios, iGaming & Algoritmos Social/Match.",
+    version="2.7.0"
 )
 
-# Base de datos en memoria para el Casino
+# Billeteras digitales en memoria
 user_wallets = {}
 
-# --- 1. DASHBOARD PRINCIPAL CON MÓDULOS DEL ECOSISTEMA ---
+# --- 1. DASHBOARD PRINCIPAL INSTITUCIONAL ---
 @app.get("/", response_class=HTMLResponse, tags=["Dashboard"])
 def home_dashboard(request: Request):
     return """
@@ -22,7 +22,7 @@ def home_dashboard(request: Request):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Kempromed Flow | Total Ecosystem</title>
+        <title>Kempromed Flow | Enterprise Ecosystem</title>
         <style>
             * { box-sizing: border-box; }
             body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0b0f19; color: #f8fafc; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
@@ -55,9 +55,9 @@ def home_dashboard(request: Request):
     <body>
 
         <div class="header">
-            <span class="status-badge">● Sistema 100% Operativo | GCP & Render</span>
+            <span class="status-badge">● Sistema 100% Operativo | GCP & Render Cloud</span>
             <h1>KEMPROMED FLOW</h1>
-            <p class="sub">Ecosistema Integral de Microservicios: Salud, Economía Digital, Desarrollo Social, Negocios B2B, Casino & Algoritmos de Conexión.</p>
+            <p class="sub">Ecosistema Integrado B2B: Salud Digital, Finanzas Cripto, Desarrollo Social, Licencias Empresariales, iGaming & Redes de Interacción.</p>
         </div>
 
         <div class="container">
@@ -79,7 +79,7 @@ def home_dashboard(request: Request):
                 <!-- 2. MÓDULO ECONOMÍA & CRIPTO -->
                 <div class="card">
                     <div>
-                        <h3>📈 Economía & Cripto Engine</h3>
+                        <h3>📈 Finanzas & Cripto Engine</h3>
                         <p>Feeds de precios en vivo, liquidación de activos y pasarela financiera de liquidez.</p>
                         <div class="price-box">
                             <span style="color:#64748b; font-size:0.8rem;">BITCOIN (USD):</span>
@@ -92,7 +92,7 @@ def home_dashboard(request: Request):
                 <!-- 3. MÓDULO NEGOCIOS B2B -->
                 <div class="card">
                     <div>
-                        <h3>💳 Negocios & Licencias B2B</h3>
+                        <h3>💳 Licencias & Pagos B2B</h3>
                         <p>Terminales dinámicas de cobro, contratos de servicios e inyección de liquidez personalizada.</p>
                         <div class="price-box">
                             <span style="color:#64748b; font-size:0.8rem;">PASARELA:</span>
@@ -115,11 +115,11 @@ def home_dashboard(request: Request):
                     <a href="/docs" class="btn">Portal Universitario →</a>
                 </div>
 
-                <!-- 5. MÓDULO APUESTAS / CASINO -->
+                <!-- 5. MÓDULO IGAMING & ENTROPÍA -->
                 <div class="card">
                     <div>
-                        <h3>🎰 Casino & Quantum Entropy</h3>
-                        <p>Motor de apuestas, asignación de bonos, multiplicadores y gestión de riesgo en tiempo real.</p>
+                        <h3>🎮 iGaming & Dynamic Entropy</h3>
+                        <p>Motor de simulación probabilística, asignación de incentivos, multiplicadores y gestión de riesgo.</p>
                         <div class="price-box">
                             <span style="color:#64748b; font-size:0.8rem;">MOTOR:</span>
                             <div class="price-val" style="color:#a855f7;">Aura Active</div>
@@ -258,37 +258,37 @@ def aura_engine(request: Request):
     </html>
     """
 
-# --- 5. MOTOR CASINO CRIPTO & BILLETERAS ---
-@app.post("/api/v1/casino/register", tags=["Casino Cripto"])
+# --- 5. MOTOR IGAMING & ENTROPÍA DINÁMICA ---
+@app.post("/api/v1/igaming/register", tags=["iGaming Engine"])
 def register_player(user_id: str):
-    """Crea la billetera del jugador y asigna bono inicial gratis."""
+    """Crea la billetera del usuario y asigna incentivo inicial."""
     if user_id not in user_wallets:
         user_wallets[user_id] = {
             "real_balance_sats": 0,
             "bonus_balance_sats": 1000,
-            "bets_placed": 0
+            "rounds_played": 0
         }
     return {
         "status": "success",
         "user_id": user_id,
         "wallet": user_wallets[user_id],
-        "message": "¡Bono de bienvenida acreditado! Completa 5 apuestas para liberar ganancias."
+        "message": "¡Bono promocional acreditado! Completa 5 rondas para liberar saldo."
     }
 
-@app.post("/api/v1/casino/play-round", tags=["Casino Cripto"])
-def play_casino_round(user_id: str, bet_sats: int, use_bonus: bool = True):
-    """Procesa la apuesta con multiplicador transparente."""
+@app.post("/api/v1/igaming/play-round", tags=["iGaming Engine"])
+def play_igaming_round(user_id: str, bet_sats: int, use_bonus: bool = True):
+    """Procesa la ronda con algoritmo probabilístico."""
     if user_id not in user_wallets:
-        return {"error": "Usuario no registrado. Llama primero a /register"}
+        return {"error": "Usuario no registrado. Llama primero a /igaming/register"}
     
     player = user_wallets[user_id]
     balance_key = "bonus_balance_sats" if use_bonus else "real_balance_sats"
     
     if player[balance_key] < bet_sats:
-        return {"error": f"Saldo insuficiente en la billetera {'de Bono' if use_bonus else 'Real'}"}
+        return {"error": f"Saldo insuficiente en billetera {'Promocional' if use_bonus else 'Real'}"}
     
     player[balance_key] -= bet_sats
-    player["bets_placed"] += 1
+    player["rounds_played"] += 1
     
     multipliers = [0, 0, 0, 1.2, 1.5, 2.0, 3.5, 10.0]
     hit = random.choice(multipliers)
@@ -305,7 +305,7 @@ def play_casino_round(user_id: str, bet_sats: int, use_bonus: bool = True):
         "status": "WIN" if hit > 1 else "LOSS"
     }
 
-# --- 6. ENDPOINTS CRIPTO & CASINO MULTIPLICADOR BASE ---
+# --- 6. ENDPOINTS CRIPTO & MULTIPLICADOR B2B ---
 @app.get("/api/v1/crypto/price", tags=["Crypto Engine"])
 def get_crypto_price():
     try:
@@ -314,7 +314,7 @@ def get_crypto_price():
     except Exception:
         return {"status": "success", "bitcoin_usd": 64249.00}
 
-@app.post("/api/v1/casino/multiply", tags=["Casino Engine"])
+@app.post("/api/v1/igaming/multiply", tags=["iGaming Engine"])
 def multiply_balance(user_id: str, amount_mxn: float):
     multipliers = [0, 0, 1.2, 1.5, 2.0, 3.0, 5.0]
     hit = random.choice(multipliers)
