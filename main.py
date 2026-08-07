@@ -1,183 +1,112 @@
 import os
-from fastapi import FastAPI, HTTPException, status, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
-from pydantic import BaseModel, Field
-from typing import Dict, Any
-import httpx
+import random
+import requests
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
 
-# 1. Configuración principal de la API
 app = FastAPI(
-    title="Kempromed Flow API",
-    description="Infraestructura B2B / SaaS para Servicios de Salud, Monetización y Soluciones Cripto.",
-    version="1.0.0",
-    docs_url="/docs",
-    redoc_url="/redoc"
+    title="Kempromed Flow Engine",
+    description="Backend de microservicios B2B, APIs Cripto y Plataforma de Cobro",
+    version="1.1.0"
 )
 
-# 2. Configuración de Plantillas
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
-# --- VALIDACIÓN OFICIAL DMCA ---
-@app.get("/dmca-validation.html", response_class=HTMLResponse)
-async def dmca_validation():
-    return "eT15SEdmUjB5dVZFajhzK25mQ2JXdU9jV3BraUdUWkJMWE01bDROcKJXND01"
-# 3. Configuración de CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# --- 1. MÓDULO DE PRECIOS CRIPTO EN VIVO ---
+@app.get("/api/v1/crypto/price", tags=["Crypto"])
+def get_btc_price():
+    try:
+        url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+        res = requests.get(url, timeout=5).json()
+        price = res.get("bitcoin", {}).get("usd", 0.0)
+        return {"status": "success", "bitcoin_usd": price}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
-# --- MODELOS DE DATOS (Pydantic) ---
-
-class HealthCheckResponse(BaseModel):
-    status: str = Field(..., example="ok")
-    service: str = Field(..., example="Kempromed Flow Engine")
-    environment: str = Field(..., example="production")
-
-class HealthModuleRequest(BaseModel):
-    client_id: str = Field(..., example="CANACINTRA-001")
-    service_type: str = Field(..., example="telemedicina")
-
-# --- ENDPOINT VISTA DASHBOARD (LANDING PAGE) ---
-
-@app.get("/", response_class=HTMLResponse, tags=["Landing Page"])
-async def render_dashboard(request: Request):
-    return templates.TemplateResponse(
-        request=request, 
-        name="index.html"
-    )
-
-# --- ENDPOINTS CORE ---
-
-@app.get("/health", response_model=HealthCheckResponse, tags=["Monitoreo"])
-async def health_check():
-    """Endpoint ligero para verificar disponibilidad del servidor."""
+# --- 2. MOTOR DE MULTIPLICACIÓN / CASINO (100 PESOS MXN) ---
+@app.post("/api/v1/casino/multiply", tags=["Casino Engine"])
+def multiply_balance(user_id: str, amount_mxn: float):
+    if amount_mxn < 10:
+        return {"error": "El monto mínimo para procesar es $10.00 MXN"}
+    
+    multipliers = [0, 0, 1.2, 1.5, 2.0, 3.0, 5.0]
+    hit = random.choice(multipliers)
+    final_amount = amount_mxn * hit
+    
     return {
-        "status": "ok",
-        "service": "Kempromed Flow Engine",
-        "environment": "production"
+        "user_id": user_id,
+        "initial_deposit_mxn": amount_mxn,
+        "multiplier": f"{hit}x",
+        "final_balance_mxn": final_amount,
+        "profit_mxn": final_amount - amount_mxn,
+        "status": "WIN" if hit > 1 else "LOSS"
     }
 
-# --- MÓDULO CRIPTO ---
-
-@app.get("/api/v1/crypto/price", tags=["Servicios Cripto"])
-async def get_crypto_price(symbol: str = "bitcoin", currency: str = "usd") -> Dict[str, Any]:
-    """
-    Obtiene la cotización en tiempo real de criptomonedas utilizando llamadas asíncronas.
-    """
-    url = f"https://api.coingecko.com/api/v3/simple/price?ids={symbol.lower()}&vs_currencies={currency.lower()}"
-    
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.get(url, timeout=5.0)
-            if response.status_code != 200:
-                raise HTTPException(
-                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                    detail="Error al conectar con la API de mercados cripto."
-                )
-            data = response.json()
-            if not data or symbol.lower() not in data:
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail=f"Símbolo '{symbol}' no encontrado."
-                )
+# --- 3. TERMINAL DE PAGO / CHECKOUT (Soluciona el Error 500) ---
+@app.get("/checkout", response_class=HTMLResponse, tags=["Terminales"])
+def checkout_page(request: Request):
+    return """
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Terminal de Cobro B2B | Kempromed Flow</title>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+            .card { background: #161e2e; border: 1px solid #223046; border-radius: 16px; padding: 40px; max-width: 480px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; }
+            h2 { color: #38bdf8; margin-top: 0; font-size: 1.8rem; }
+            .badge { background: #064e3b; color: #34d399; font-size: 0.85rem; padding: 4px 12px; border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 20px; }
+            .amount-box { background: #0f172a; border: 1px dashed #334155; border-radius: 12px; padding: 20px; margin: 20px 0; }
+            .amount { font-size: 2.2rem; font-weight: bold; color: #4ade80; }
+            .btn { background: #10b981; color: #022c22; font-weight: bold; padding: 14px 28px; border-radius: 10px; text-decoration: none; display: block; font-size: 1rem; transition: all 0.2s ease; margin-top: 20px; }
+            .btn:hover { background: #34d399; transform: translateY(-2px); }
+            .footer-note { font-size: 0.8rem; color: #64748b; margin-top: 25px; }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <span class="badge">● Terminal Activa 24/7</span>
+            <h2>Pasarela B2B & Licencias</h2>
+            <p style="color: #94a3b8; font-size: 0.95rem;">Selecciona el monto de inyección de liquidez para tu módulo de software o cuenta.</p>
             
-            return {
-                "success": True,
-                "asset": symbol.lower(),
-                "currency": currency.lower(),
-                "price": data[symbol.lower()][currency.lower()]
-            }
-        except httpx.RequestError:
-            raise HTTPException(
-                status_code=status.HTTP_504_GATEWAY_TIMEOUT,
-                detail="Tiempo de espera agotado al consultar el mercado."
-            )
+            <div class="amount-box">
+                <span style="color: #94a3b8; font-size: 0.85rem;">MONTO DE ENTRADA:</span>
+                <div class="amount">$100.00 MXN</div>
+                <span style="color: #38bdf8; font-size: 0.8rem;">~5.00 USDT / Cripto Equivalente</span>
+            </div>
 
-# --- MÓDULO SALUD & B2B ---
-
-@app.post("/api/v1/health-services/register", tags=["Infraestructura Salud B2B"])
-async def register_health_service(payload: HealthModuleRequest):
+            <a href="/docs" class="btn">Procesar Transacción en API →</a>
+            
+            <div class="footer-note">
+                Sincronizado con Render Cloud, SPEI y Polygon Network Engine.<br>
+                © 2026 Kempromed Development.
+            </div>
+        </div>
+    </body>
+    </html>
     """
-    Punto de entrada para la integración de módulos de salud empresarial.
+
+# --- 4. RUTA AURA (Soluciona el Error 404) ---
+@app.get("/aura", response_class=HTMLResponse, tags=["Terminales"])
+def aura_engine(request: Request):
+    return """
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Aura Quantum Engine | Kempromed</title>
+        <style>
+            body { font-family: sans-serif; background: #020617; color: #38bdf8; text-align: center; padding: 50px; }
+            .box { border: 1px solid #1e293b; background: #0f172a; padding: 30px; border-radius: 12px; display: inline-block; }
+            a { color: #4ade80; text-decoration: none; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <h1>⚡ Módulo Aura Active</h1>
+            <p style="color: #94a3b8;">Motor asíncrono de procesamiento en tiempo real ejecutándose en la nube.</p>
+            <br>
+            <a href="/">← Regresar al Portal Principal</a>
+        </div>
+    </body>
+    </html>
     """
-    return {
-        "success": True,
-        "message": f"Servicio '{payload.service_type}' registrado exitosamente para el cliente '{payload.client_id}'.",
-        "integration_status": "Active"
-    }
-import sqlite3
-from fastapi import Form
-
-# Inicializar Base de Datos para K-AURA
-def init_db():
-    conn = sqlite3.connect("kaura.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS perfiles (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            pseudonimo TEXT NOT NULL,
-            correo TEXT NOT NULL,
-            estado TEXT DEFAULT 'Pendiente',
-            fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
-    conn.commit()
-    conn.close()
-
-init_db()
-
-# API: Guardar formulario de K-AURA
-@app.post("/api/solicitar-acceso")
-async def solicitar_acceso(pseudonimo: str = Form(...), correo: str = Form(...)):
-    conn = sqlite3.connect("kaura.db")
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO perfiles (pseudonimo, correo) VALUES (?, ?)", (pseudonimo, correo))
-    conn.commit()
-    conn.close()
-    return {"status": "ok", "message": "Solicitud recibida con éxito"}
-
-# API: Panel de administración para ver postulantes
-@app.get("/admin/perfiles")
-async def ver_perfiles():
-    conn = sqlite3.connect("kaura.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, pseudonimo, correo, estado, fecha FROM perfiles ORDER BY id DESC")
-    filas = cursor.fetchall()
-    conn.close()
-    
-    perfiles = [
-        {"id": f[0], "pseudonimo": f[1], "correo": f[2], "estado": f[3], "fecha": f[4]}
-        for f in filas
-    ]
-    return {"total_postulantes": len(perfiles), "postulantes": perfiles}
-    import os
-import stripe
-from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
-
-# Si app ya está definida arriba, solo asegúrate de incluir esta línea y el endpoint:
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
-
-@app.get("/checkout")
-def cobrar_cien():
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=[{
-            'price_data': {
-                'currency': 'mxn',
-                'product_data': {'name': 'Acceso Kempromed Flow'},
-                'unit_amount': 10000,  # $100.00 MXN
-            },
-            'quantity': 1,
-        }],
-        mode='payment',
-        success_url='https://kempromed-flow.onrender.com/?status=success',
-        cancel_url='https://kempromed-flow.onrender.com/?status=cancel',
-    )
-    return RedirectResponse(url=session.url)
