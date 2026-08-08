@@ -1,8 +1,9 @@
 import os
 import random
 import requests
+import stripe
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 
 app = FastAPI(
     title="Kempromed Flow | High-Yield B2B Engine",
@@ -10,7 +11,11 @@ app = FastAPI(
     version="3.0.0"
 )
 
-# Billeteras digitales en memoria
+# Inicializar Stripe con la variable de entorno
+STRIPE_KEY = os.getenv("STRIPE_SECRET_KEY", "")
+if STRIPE_KEY:
+    stripe.api_key = STRIPE_KEY
+
 user_wallets = {}
 
 # --- 1. DASHBOARD ENFOCADO EN VENTAS & LIQUIDEZ ---
@@ -63,7 +68,6 @@ def home_dashboard(request: Request):
         <div class="container">
             <div class="grid">
                 
-                <!-- 1. MÓDULO FINANZAS & CRIPTO -->
                 <div class="card">
                     <div>
                         <h3>📈 Finanzas & Cripto Engine</h3>
@@ -76,7 +80,6 @@ def home_dashboard(request: Request):
                     <a href="/docs" class="btn">Crypto API Docs →</a>
                 </div>
 
-                <!-- 2. MÓDULO TERMINAL B2B -->
                 <div class="card">
                     <div>
                         <h3>💳 Terminal B2B & Licencias SaaS</h3>
@@ -89,7 +92,6 @@ def home_dashboard(request: Request):
                     <a href="/checkout" class="btn btn-green">Abrir Terminal de Cobro</a>
                 </div>
 
-                <!-- 3. MÓDULO IGAMING & ENTROPÍA -->
                 <div class="card">
                     <div>
                         <h3>🎮 iGaming & Entropy Suite</h3>
@@ -145,7 +147,7 @@ def home_dashboard(request: Request):
     </html>
     """
 
-# --- 2. TERMINAL DE PAGO / CHECKOUT RECTIFICADA ---
+# --- 2. TERMINAL DE PAGO / CHECKOUT ---
 @app.get("/checkout", response_class=HTMLResponse, tags=["Terminales"])
 def checkout_page(request: Request, amount: float = None):
     initial_val = f"{amount:.2f}" if amount else ""
@@ -166,7 +168,7 @@ def checkout_page(request: Request, amount: float = None):
     <body>
         <div class="card">
             <h2 style="color:#38bdf8; margin-top:0;">Terminal de Cobro Dinámica</h2>
-            <p style="color:#94a3b8; font-size:0.9rem;">Ingresa el monto a procesar (MXN / USD / Cripto):</p>
+            <p style="color:#94a3b8; font-size:0.9rem;">Ingresa el monto a procesar (MXN):</p>
             
             <form action="/api/v1/stripe/create-checkout" method="POST">
                 <input type="number" step="0.01" name="amount" placeholder="Monto $0.00" value="{initial_val}" required>
@@ -180,17 +182,36 @@ def checkout_page(request: Request, amount: float = None):
     </html>
     """
 
-# --- 3. ENDPOINT STRIPE RECEPCIÓN RÁPIDA ---
+# --- 3. REDIRECCIÓN A STRIPE CHECKOUT OFICIAL ---
 @app.post("/api/v1/stripe/create-checkout", tags=["Stripe Gateway"])
 def create_stripe_checkout(amount: float = Form(...)):
-    stripe_key = os.getenv("STRIPE_SECRET_KEY", "mock_key")
-    return {
-        "status": "success",
-        "amount_received": amount,
-        "currency": "MXN",
-        "gateway": "Stripe B2B Engine",
-        "message": f"Cobro de ${amount:.2f} MXN listo para procesamiento."
-    }
+    if not stripe.api_key:
+        return JSONResponse(status_code=400, content={"error": "Falta configurar STRIPE_SECRET_KEY en Render."})
+    
+    try:
+        # Convertir monto a centavos para Stripe (ejemplo: $1000.00 -> 100000)
+        amount_cents = int(amount * 100)
+        
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'mxn',
+                    'product_data': {
+                        'name': 'Inyección de Liquidez / Licencia SaaS',
+                        'description': 'Servicios Digitales Kempromed Flow',
+                    },
+                    'unit_amount': amount_cents,
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url='https://kempromed-flow.onrender.com/?payment=success',
+            cancel_url='https://kempromed-flow.onrender.com/checkout',
+        )
+        return RedirectResponse(url=session.url, status_code=303)
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
 
 # --- 4. RUTA AURA ---
 @app.get("/aura", response_class=HTMLResponse, tags=["Terminales"])
