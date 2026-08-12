@@ -1,0 +1,18 @@
+import math, random, time
+
+def shannon_entropy(sequence: str) -> float:
+    if not sequence: return 1.0
+    n = len(sequence)
+    p0, p1 = sequence.count('0') / n, sequence.count('1') / n
+    entropy = 0.0
+    for p in (p0, p1):
+        if p > 0: entropy -= p * math.log2(p)
+    return round(entropy, 4)
+
+print("=== PROBANDO MOTOR DE ENTROPÍA (LOCAL) ===")
+for i in range(1, 6):
+    muestra = "".join(random.choice(["0", "1"]) for _ in range(50))
+    h = shannon_entropy(muestra)
+    estado = "CRÍTICO (DESVIACIÓN)" if h < 0.85 else "OK (NOMINAL)"
+    print(f"Muestra {i}: Entropía = {h} | Estado = {estado}")
+    time.sleep(0.5)
