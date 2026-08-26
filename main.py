@@ -292,3 +292,84 @@ def get_crypto_price():
         return {"status": "success", "bitcoin_usd": res.get("bitcoin", {}).get("usd", 64249.00)}
     except Exception:
         return {"status": "success", "bitcoin_usd": 64249.00}
+@app.get("/", response_class=HTMLResponse)
+def serve_kempromed_flow_landing():
+    return """
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kempromed Flow | Engine 100% Operativo</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    </head>
+    <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+        
+        <div class="max-w-4xl mx-auto p-6 space-y-8">
+            <!-- Header Institutional -->
+            <header class="flex justify-between items-center border-b border-slate-800 pb-6">
+                <div>
+                    <span class="text-xs font-mono text-cyan-400 tracking-widest">KEMPROMED FLOW</span>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-white mt-1">ENGINE 100% OPERATIVO</h1>
+                </div>
+                <div class="flex items-center gap-2 bg-emerald-950/50 border border-emerald-800 px-3 py-1.5 rounded-full">
+                    <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs font-mono text-emerald-400 font-semibold">LIVE</span>
+                </div>
+            </header>
+
+            <!-- Main Hero Card -->
+            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 font-mono text-xs text-cyan-400">REF ORIGINAL</div>
+                <p class="text-xs font-mono text-slate-400 mb-2">INFRAESTRUCTURA FINTECH B2B</p>
+                
+                <!-- Bitcoin Data Mock -->
+                <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-5 my-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded">01 — DATA ORACLE</span>
+                        <span class="text-xs text-emerald-400 font-mono">+1.92% 24h</span>
+                    </div>
+                    <div class="text-3xl md:text-4xl font-black font-mono text-white my-2">$62,847.33</div>
+                    <div class="text-xs text-slate-400 flex gap-4">
+                        <span>VOL 28.48 USD</span>
+                        <span>HIGH 63,210</span>
+                        <span>LOW 61,442</span>
+                    </div>
+                </div>
+
+                <!-- Specs Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <div class="text-xs text-slate-400 mb-1">UPTIME</div>
+                        <div class="text-xl font-bold font-mono text-emerald-400">99.99%</div>
+                        <div class="text-[10px] text-slate-500 mt-1">SLA Last 90d</div>
+                    </div>
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <div class="text-xs text-slate-400 mb-1">LATENCY</div>
+                        <div class="text-xl font-bold font-mono text-cyan-400">1.8ms</div>
+                        <div class="text-[10px] text-slate-500 mt-1">p95 Edge</div>
+                    </div>
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <div class="text-xs text-slate-400 mb-1">NODES ACTIVE</div>
+                        <div class="text-xl font-bold font-mono text-purple-400">128</div>
+                        <div class="text-[10px] text-slate-500 mt-1">Auto-scaled</div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-xs text-slate-400">Optimiza tu flujo financiero con infraestructura cloud de alto rendimiento.</p>
+                    <a href="#contacto" class="w-full md:w-auto text-center bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20">
+                        ACCEDER AHORA →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer specs -->
+            <footer class="text-center text-xs font-mono text-slate-500 py-4 border-t border-slate-900">
+                KEMPROMED FLOW • SPEC SHEET 2025 • Documentación técnica para inversores
+            </footer>
+        </div>
+    </body>
+    </html>
+    """
