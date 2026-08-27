@@ -15,6 +15,10 @@ def serve_kempromed_flow_landing():
     <!DOCTYPE html>
     <html lang="es">
     <head>
+        <meta property="og:title" content="Kempromed Flow | Engine 100% Operativo">
+    <meta property="og:description" content="Infraestructura Fintech B2B. Cada módulo validado en producción sobre Render Cloud.">
+    <meta property="og:type" content="website">
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Kempromed Flow | Engine 100% Operativo</title>
