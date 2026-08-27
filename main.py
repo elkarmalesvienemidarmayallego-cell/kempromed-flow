@@ -9,11 +9,6 @@ app = FastAPI(
     version="3.0.0"
 )
 
-# --- TU LÓGICA DE STRIPE Y PAGOS QUEDA INTACTA ABAJO ---
-# (Aquí van tus funciones y webhooks que ya tenías programados)
-
-
-# --- FACHADA CORPORATIVA KEMPROMED FLOW (RUTA RAÍZ) ---
 @app.get("/", response_class=HTMLResponse)
 def serve_kempromed_flow_landing():
     return """
