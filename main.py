@@ -35,12 +35,29 @@ def serve_kempromed_flow_landing():
 
             <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
                 <p class="text-xs font-mono text-slate-400 mb-2">INFRAESTRUCTURA FINTECH B2B</p>
-                <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-5 my-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded">01 — DATA ORACLE</span>
-                        <span class="text-xs text-emerald-400 font-mono">+1.92% 24h</span>
+                <p class="text-slate-300 text-sm md:text-base mb-6">Cada módulo validado en producción sobre Render Cloud + Binance WS. Diseñado para pitch de inversores — B2B Terminal & Crypto API Docs.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                    <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4">
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">01 — DATA ORACLE</span>
+                        <div class="text-xl font-black font-mono text-white mt-2">$62,847.33</div>
+                        <p class="text-[11px] text-emerald-400 font-mono mt-1">+1.92% 24h</p>
                     </div>
-                    <div class="text-3xl md:text-4xl font-black font-mono text-white my-2">$62,847.33</div>
+                    <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4">
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">02 — CLOUD UPTIME</span>
+                        <div class="text-xl font-black font-mono text-white mt-2">99.99%</div>
+                        <p class="text-[11px] text-slate-400 font-mono mt-1">Nodes: 128 Active</p>
+                    </div>
+                    <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4">
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">03 — SYSTEM STATUS</span>
+                        <div class="text-xl font-black font-mono text-emerald-400 mt-2">SECURE</div>
+                        <p class="text-[11px] text-slate-400 font-mono mt-1">Throughput: 1.24M req/s</p>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800 flex flex-wrap gap-3 items-center justify-between">
+                    <span class="text-xs font-mono text-slate-400">KEMPROMED FLOW • ESPECIFICACIÓN TÉCNICA 2026</span>
+                    <a href="#contacto" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold font-mono px-5 py-2.5 rounded-lg transition-all shadow-lg shadow-cyan-950">ACCEDER AHORA →</a>
                 </div>
             </div>
         </div>
