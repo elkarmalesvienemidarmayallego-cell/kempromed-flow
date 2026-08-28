@@ -1,1 +1,5 @@
+# Autor: Dr. Mauro Ernesto Falcón Muñoz
+# Proyecto: Kempromed Ecosystem
+# Propiedad Intelectual Protegida - Todos los Derechos Reservados
+
 # kempromed-flow
