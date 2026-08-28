@@ -1,3 +1,7 @@
+# Autor: Dr. Mauro Ernesto Falcón Muñoz
+# Proyecto: Kempromed Ecosystem
+# Propiedad Intelectual Protegida - Todos los Derechos Reservados
+
 "id","productPath","title","docUrl","releaseLevel","iconUrl","description","version","serviceName","group"
 "2","Cloud > Google Cloud Platform (GCP) > Cloud AI & Industry Solutions > Cloud AI > Cloud Vision","Cloud Vision","docs.cloud.google.com/vision/","GA","http://www.google.com/images/icons/product/search-32.gif","Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications.","v1","vision.googleapis.com","Cloud/GCP"
 "3","Cloud > Google Cloud Platform (GCP) > Cloud AI & Industry Solutions > Cloud AI > Speech-to-Text","Speech-to-Text","docs.cloud.google.com/speech-to-text/","GA","http://www.google.com/images/icons/product/search-32.gif","Converts audio to text by applying powerful neural network models.","v1","speech.googleapis.com","Cloud/GCP"
