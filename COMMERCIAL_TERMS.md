@@ -1,3 +1,7 @@
+# Autor: Dr. Mauro Ernesto Falcón Muñoz
+# Proyecto: Kempromed Ecosystem
+# Propiedad Intelectual Protegida - Todos los Derechos Reservados
+
 # Propuesta de Términos de Comercialización y Licenciamiento
 
 **Autor y Titular:** Dr. Mauro Ernesto Falcón Muñoz  
