@@ -1,3 +1,7 @@
+# Autor: Dr. Mauro Ernesto Falcón Muñoz
+# Proyecto: Kempromed Ecosystem
+# Propiedad Intelectual Protegida - Todos los Derechos Reservados
+
 "productId","language","packageName","version","referenceUrl"
 "2","CPP","google-cloud-cpp::vision::v1","stable","https://cloud.google.com/cpp/docs/reference/vision/latest"
 "2","JAVA","com.google.cloud:google-cloud-vision","stable","https://cloud.google.com/java/docs/reference/google-cloud-vision/latest/overview"
