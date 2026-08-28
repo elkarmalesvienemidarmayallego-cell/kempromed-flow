@@ -1,3 +1,7 @@
+# Autor: Dr. Mauro Ernesto Falcón Muñoz
+# Proyecto: Kempromed Ecosystem
+# Propiedad Intelectual Protegida - Todos los Derechos Reservados
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
