@@ -24,21 +24,18 @@
 <body class="bg-darkBg text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
     <div class="max-w-4xl mx-auto p-6 space-y-8 w-full">
         <!-- HEADER / NAVBAR -->
-        <header class="flex justify-between items-center bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 backdrop-blur-md">
+        <header class="flex flex-col sm:flex-row justify-between items-center bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 backdrop-blur-md gap-4">
             <div>
-                <h1 class="text-xl font-bold tracking-wide bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+                <h1 class="text-xl font-bold tracking-wide bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent text-center sm:text-left">
                     KEMPROMED <span class="text-cyan-400 font-extrabold">FLOW</span>
                 </h1>
-                <p class="text-xs text-gray-400">Kempro Development Ecosystem</p>
+                <p class="text-xs text-gray-400 text-center sm:text-left">Kempro Development Ecosystem</p>
             </div>
             <div class="flex items-center space-x-3">
                 <span id="system-status-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sistema Operativo
                 </span>
-                <a href="/docs" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg flex items-center gap-2">
-                    <i class="fa-solid fa-code"></i> Docs
-                </a>
-                <a href="https://buy.stripe.com/tu-enlace-de-pago-original" target="_blank" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg flex items-center gap-2">
+                <a href="#terminal-pago" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg flex items-center gap-2">
                     <i class="fa-solid fa-credit-card"></i> Pagar Licencia
                 </a>
             </div>
@@ -53,7 +50,7 @@
                 <div class="bg-slate-950/80 border border-slate-900 p-4 rounded-xl space-y-2">
                     <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">Motor B2B</span>
                     <div class="text-xl font-black text-white">Infraestructura Médica</div>
-                    <p class="text-[11px] text-emerald-400">● Nodos de pago y pasarela activos</p>
+                    <p class="text-[11px] text-emerald-400">● Pasarela directa activa</p>
                 </div>
                 <div class="bg-slate-950/80 border border-slate-900 p-4 rounded-xl space-y-2">
                     <span class="text-[10px] font-mono text-blue-400 uppercase tracking-widest">Seguridad</span>
@@ -62,12 +59,56 @@
                 </div>
             </div>
         </div>
+
+        <!-- TERMINAL DE PAGO DIRECTO (BANCO AZTECA) -->
+        <div id="terminal-pago" class="bg-cardBg border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-6">
+            <div class="text-center space-y-2">
+                <h2 class="text-lg font-bold text-white flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-cyan-400"></i> Terminal de Pago Directo (SPEI)
+                </h2>
+                <p class="text-xs text-gray-400">Realiza tu transferencia interbancaria de forma inmediata y segura.</p>
+            </div>
+
+            <div class="bg-slate-950/90 border border-slate-800 p-4 rounded-xl space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <span class="text-xs text-gray-400">Banco:</span>
+                    <span class="text-sm font-semibold text-white">Banco Azteca</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <span class="text-xs text-gray-400">Beneficiario:</span>
+                    <span class="text-sm font-semibold text-white">Kempromed / Titular</span>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800 pb-2 gap-1">
+                    <span class="text-xs text-gray-400">CLABE Interbancaria:</span>
+                    <span id="clabe-text" class="text-sm font-mono font-bold text-cyan-400">1271 8001 6456 2597 55</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="copiarDatos()" class="flex-1 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-copy"></i> Copiar CLABE SPEI
+                </button>
+                <a href="https://wa.me/16617508599?text=Hola,%20realicé%20la%20transferencia%20SPEI%20a%20Banco%20Azteca%20(127180016456259755).%20Adjunto%20comprobante." target="_blank" class="flex-1 px-4 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-2 text-center">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Confirmar por WhatsApp
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- FOOTER -->
     <footer class="w-full border-t border-slate-800/80 bg-slate-900/40 py-4 mt-12 text-center text-xs text-gray-500">
         Kempromed Ecosystem &copy; 2026. Todos los derechos reservados.
     </footer>
+
+    <script>
+        function copiarDatos() {
+            const cuenta = "127180016456259755";
+            navigator.clipboard.writeText(cuenta).then(() => {
+                alert("¡CLABE SPEI copiada al portapapeles con éxito!");
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
-
