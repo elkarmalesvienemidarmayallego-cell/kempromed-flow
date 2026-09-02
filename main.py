@@ -1,6 +1,3 @@
-# Autor: Dr. Mauro Ernesto Falcón Muñoz
-# Proyecto: Kempromed Ecosystem
-# Propiedad Intelectual Protegida - Todos los Derechos Reservados
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
