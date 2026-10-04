@@ -1,71 +1,129 @@
-
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
 import os
-import stripe
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
-app = FastAPI(
-    title="Kempromed Flow | Motor B2B",
-    description="Plataforma Comercial B2B",
-    version="3.0.0"
-)
+app = FastAPI(title="KemProMed Ecosystem Hub", version="2.0.0")
 
 @app.get("/", response_class=HTMLResponse)
-def serve_kempromed_flow_landing():
-    return """
+async def serve_hub_landing():
+    html_content = """
     <!DOCTYPE html>
     <html lang="es">
     <head>
-        <meta property="og:title" content="Kempromed Flow | Engine 100% Operativo">
-    <meta property="og:description" content="Infraestructura Fintech B2B. Cada módulo validado en producción sobre Render Cloud.">
-    <meta property="og:type" content="website">
-
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Kempromed Flow | Engine 100% Operativo</title>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <title>KemProMed // Central Hub & Service Directory</title>
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #060911; color: #f1f5f9; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
+            
+            /* HEADER / NAV */
+            header { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid #1e293b; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+            .logo-title { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; color: #38bdf8; display: flex; align-items: center; gap: 10px; }
+            .status-badge { background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; color: #22c55e; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+
+            /* HERO SECTION */
+            .hero { text-align: center; max-width: 900px; margin: 60px auto 40px auto; padding: 0 20px; }
+            .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 15px; background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+            .hero p { color: #94a3b8; font-size: 1.2rem; line-height: 1.6; }
+
+            /* GRID DE BIFURCACIÓN DE SERVICIOS */
+            .services-grid { max-width: 1100px; margin: 0 auto 60px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 20px; }
+            
+            .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 35px 25px; transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+            .card:hover { transform: translateY(-6px); border-color: #38bdf8; box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.2); }
+            
+            .card-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #38bdf8; margin-bottom: 12px; }
+            .card h3 { font-size: 1.4rem; color: #f8fafc; margin-bottom: 12px; }
+            .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; }
+
+            /* BOTONES DE REDIRECCIÓN */
+            .btn { display: inline-block; text-align: center; background: #2563eb; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; transition: background 0.2s ease; }
+            .btn:hover { background: #1d4ed8; }
+            .btn-outline { background: transparent; border: 1px solid #334155; color: #f8fafc; }
+            .btn-outline:hover { background: #1e293b; border-color: #475569; }
+
+            /* FOOTER OFICIAL */
+            footer { background: #04070e; border-top: 1px solid #1e293b; padding: 40px 20px 20px 20px; font-size: 0.9rem; }
+            .footer-container { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+            .footer-col h4 { color: #f8fafc; margin-bottom: 12px; font-size: 1rem; letter-spacing: 1px; }
+            .footer-col p { color: #94a3b8; margin-bottom: 6px; line-height: 1.5; }
+            .copyright { max-width: 1100px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #0f172a; text-align: center; color: #64748b; font-size: 0.8rem; }
+        </style>
     </head>
-    <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
-        <div class="max-w-4xl mx-auto p-6 space-y-8">
-            <header class="flex justify-between items-center border-b border-slate-800 pb-6">
+    <body>
+
+        <!-- NAVEGACIÓN Y CABECERA -->
+        <header>
+            <div class="logo-title">
+                <span>KEMPROMED</span>
+            </div>
+            <div class="status-badge">
+                ● INFRAESTRUCTURA ACTIVA
+            </div>
+        </header>
+
+        <!-- SECCIÓN PRINCIPAL DE PRESENTACIÓN -->
+        <div class="hero">
+            <h1>Ecosistema de Tecnologías Autónomas</h1>
+            <p>Portal central de acceso a las plataformas de ingeniería, monitoreo en blockchain y gestión de servicios de KemProMed.</p>
+        </div>
+
+        <!-- BIFURCACIÓN DE SERVICIOS Y MOTORES -->
+        <div class="services-grid">
+
+            <!-- MODULO 1: Q-ENGINE / K-AURA -->
+            <div class="card">
                 <div>
-                    <span class="text-xs font-mono text-cyan-400 tracking-widest">KEMPROMED FLOW</span>
-                    <h1 class="text-2xl md:text-3xl font-extrabold text-white mt-1">ENGINE 100% OPERATIVO</h1>
+                    <div class="card-tag">FINTECH & BLOCKCHAIN</div>
+                    <h3>Q-Engine Krypto</h3>
+                    <p>Motor determinista de monitoreo de liquidez y gestión de riesgo en la red Polygon. Control estricto de Stop Loss (80%) y Take Profit (100%).</p>
                 </div>
-                <div class="flex items-center gap-2 bg-emerald-950/50 border border-emerald-800 px-3 py-1.5 rounded-full">
-                    <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
-                    <span class="text-xs font-mono text-emerald-400 font-semibold">LIVE</span>
-                </div>
-            </header>
+                <a href="https://k-aura-ser.onrender.com" target="_blank" class="btn">Acceder al Control Panel →</a>
+            </div>
 
-            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
-                <p class="text-xs font-mono text-slate-400 mb-2">INFRAESTRUCTURA FINTECH B2B</p>
-                <p class="text-slate-300 text-sm md:text-base mb-6">Cada módulo validado en producción sobre Render Cloud + Binance WS. Diseñado para pitch de inversores — B2B Terminal & Crypto API Docs.</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                    <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4">
-                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">01 — DATA ORACLE</span>
-                        <div class="text-xl font-black font-mono text-white mt-2">$62,847.33</div>
-                        <p class="text-[11px] text-emerald-400 font-mono mt-1">+1.92% 24h</p>
-                    </div>
-                    <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4">
-                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">02 — CLOUD UPTIME</span>
-                        <div class="text-xl font-black font-mono text-white mt-2">99.99%</div>
-                        <p class="text-[11px] text-slate-400 font-mono mt-1">Nodes: 128 Active</p>
-                    </div>
-                    <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4">
-                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">03 — SYSTEM STATUS</span>
-                        <div class="text-xl font-black font-mono text-emerald-400 mt-2">SECURE</div>
-                        <p class="text-[11px] text-slate-400 font-mono mt-1">Throughput: 1.24M req/s</p>
-                    </div>
+            <!-- MODULO 2: ASISTENTE DE IA INDUSTRIAL -->
+            <div class="card">
+                <div>
+                    <div class="card-tag">INTELIGENCIA ARTIFICIAL</div>
+                    <h3>KemProMed Flow</h3>
+                    <p>Asistente virtual industrial potenciado por la API de Gemini. Análisis de gemelos digitales, cálculo de entropía y optimización en tiempo real.</p>
                 </div>
+                <a href="https://kempromed.ai.studio" target="_blank" class="btn btn-outline">Ingresar a Flow AI →</a>
+            </div>
 
-                <div class="pt-4 border-t border-slate-800 flex flex-wrap gap-3 items-center justify-between">
-                    <span class="text-xs font-mono text-slate-400">KEMPROMED FLOW • ESPECIFICACIÓN TÉCNICA 2026</span>
-                    <a href="#contacto" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold font-mono px-5 py-2.5 rounded-lg transition-all shadow-lg shadow-cyan-950">ACCEDER AHORA →</a>
+            <!-- MODULO 3: PLATAFORMA DE CITAS Y SERVICIOS -->
+            <div class="card">
+                <div>
+                    <div class="card-tag">GESTIÓN & SAAS</div>
+                    <h3>Plataforma de Citas</h3>
+                    <p>Módulo de agendamiento de servicios, consulta de disponibilidad y cobros automatizados con integración directa a Stripe.</p>
+                </div>
+                <a href="/citas" class="btn btn-outline">Gestionar Citas →</a>
+            </div>
+
+        </div>
+
+        <!-- FOOTER INSTITUCIONAL -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-col" style="max-width: 380px;">
+                    <h4>KEMPROMED</h4>
+                    <p>Desarrollo de arquitectura tecnológica SaaS, motores de gestión de riesgo en blockchain e integración de inteligencia artificial para el sector industrial y comercial.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>INFORMES Y ATENCIÓN</h4>
+                    <p>🇲🇽 México: +52 653 155 2063</p>
+                    <p>🇺🇸 USA / Int: +1 661 750 8599</p>
+                    <p>✉️ Correo: direccion@kempromed.com</p>
                 </div>
             </div>
-        </div>
+            <div class="copyright">
+                © 2026 KemProMed. Todos los derechos reservados.
+            </div>
+        </footer>
+
     </body>
     </html>
     """
+    return HTMLResponse(content=html_content)
